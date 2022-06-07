@@ -1,0 +1,21 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "All Rights Reserved"
+[[mods]]
+modId = "eximagecore"
+version = "1.4.0"
+displayName = "ExImageCore"
+authors = "GoogleTan"
+description = '''Port of OnlinePictureFrame for ExCore'''
+[[dependencies.eximagecore]]
+    modId = "forge"
+    mandatory = true
+    versionRange = "[36,)"
+    ordering = "NONE"
+    side = "BOTH"
+[[dependencies.eximagecore]]
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.16.5,1.17)"
+    ordering = "NONE"
+    side = "BOTH"
