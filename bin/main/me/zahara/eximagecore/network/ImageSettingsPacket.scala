@@ -39,7 +39,7 @@ class ImageSettingsPacket(entityId : Int, settings : ImageSettings) extends Pack
    * @return Сущность картинки или строку с ошибкой
    */
   def getImageEntityById(world : World) : Either[String, ImageEntity] =
-    val entity = world.getEntity(entityId)
+    val entity = world.getEntityByID(entityId)
     if (entity.isInstanceOf[ImageEntity])
       Right(entity.asInstanceOf)
     else
@@ -51,7 +51,7 @@ class ImageSettingsPacket(entityId : Int, settings : ImageSettings) extends Pack
    * @return Сущность картинки или строку с ошибкой
    */
   def checkPlayerCanEdit(player : ServerPlayerEntity) : Either[String, ServerPlayerEntity] =
-    if !player.getUseItem.isEmpty then //TODO использовать спец предмет
+    if !player.getHeldItemMainhand.getItem == ModItems.masterWand then //TODO использовать спец предмет
       Right(player)
     else
       Left("Can not process settings packet. Player can not edit images without item.")
@@ -62,8 +62,8 @@ class ImageSettingsPacket(entityId : Int, settings : ImageSettings) extends Pack
    * @return Сущность картинки или строку с ошибкой
    */
   def extractWorld(player : PlayerEntity) : Either[String, World] =
-    if player.level != null then
-      Right(player.level)
+    if player.world != null then
+      Right(player.world)
     else
       Left("Can not process settings packet. World is null")
 

@@ -15,11 +15,11 @@ import net.minecraft.util.text.StringTextComponent
 class EditImageScreen extends Screen(StringTextComponent("Edit image")):
   override def render(matrixStack: MatrixStack, mouseX: Int, mouseY: Int, partialTicks: Float): Unit =
     super.render(matrixStack, mouseX, mouseY, partialTicks)
-    matrixStack.pushPose()
+    matrixStack.push()
     val textureManager = Minecraft.getInstance().textureManager
-    textureManager.bind(texture)
+    textureManager.bindTexture(texture)
     AbstractGui.blit(matrixStack, 0, 0, 1.0f, 1.0f, 256, 256, 256, 256)
-    matrixStack.popPose()
+    matrixStack.pop()
     
 object EditImageScreen:
   val texture: ResourceLocation = ResourceLocation(Main.MOD_ID,"textures/gui/edit.png")  

@@ -24,16 +24,15 @@ class ImageEntity(
                  ) extends Entity(entityType, level):
   import ImageEntity.*
 
-  override def readAdditionalSaveData(compound : CompoundNBT): Unit =
+  override def readAdditional(compound: CompoundNBT): Unit =
     settings = compound.getValue[ImageSettings]("settings").getOrElse(ImageSettings())
 
-  override def addAdditionalSaveData(compound: CompoundNBT): Unit =
+  override def writeAdditional(compound: CompoundNBT): Unit =
     compound.putValue("settings", settings)
 
+  override def registerData(): Unit = ()
 
-  override def  defineSynchedData() = ()
-
-  override def getAddEntityPacket = ???
+  override def createSpawnPacket(): IPacket[_] = null
 
   def setSettings(settings : ImageSettings): Unit =
     this.settings = settings
@@ -41,8 +40,6 @@ class ImageEntity(
 
 object ImageEntity:
   class Packet(pos : BlockPos, settings: ImageSettings) extends IPacket[IServerPlayNetHandler]:
-    override def handle(p_148833_1_ : IServerPlayNetHandler): Unit = ???
-
-    override def read(p_148837_1_ : PacketBuffer): Unit = ???
-
-    override def write(p_148840_1_ : PacketBuffer): Unit = ???
+    override def processPacket(handler: IServerPlayNetHandler): Unit = ???
+    override def readPacketData(buf: PacketBuffer): Unit = ???
+    override def writePacketData(buf: PacketBuffer): Unit = ???

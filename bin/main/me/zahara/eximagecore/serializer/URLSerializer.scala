@@ -8,9 +8,9 @@ import java.net.URL
 import scala.util.Try
 
 implicit object URLSerializer extends Serializer[URL] :
-  override def fromBuffer(buffer: PacketBuffer): URL = URL(buffer.readUtf())
+  override def fromBuffer(buffer: PacketBuffer): URL = URL(buffer.readString())
 
-  override def writeToBuffer(buffer: PacketBuffer, value: URL): Unit = buffer.writeUtf(value.toString)
+  override def writeToBuffer(buffer: PacketBuffer, value: URL): Unit = buffer.writeString(value.toString)
 
   override def fromTag(name: String, tag: CompoundNBT): Option[URL] =
     if tag.contains(name) then

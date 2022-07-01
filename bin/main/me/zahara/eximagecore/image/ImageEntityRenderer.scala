@@ -31,7 +31,7 @@ class ImageEntityRenderer(entity : EntityRendererManager) extends EntityRenderer
       case _ =>
     GL11.glRotated(rotation, 0, 1, 0)
 
-  override def getTextureLocation(entity: ImageEntity): ResourceLocation = ???
+  override def getEntityTexture(entity: ImageEntity): ResourceLocation = ???
 
   override def render(
                        entityIn: ImageEntity,
@@ -43,19 +43,19 @@ class ImageEntityRenderer(entity : EntityRendererManager) extends EntityRenderer
                      ): Unit =
     val texture = entityIn.texture
     if texture != null then
-      val x = entityIn.getX
-      val y = entityIn.getY
-      val z = entityIn.getZ
+      val x = entityIn.getPosX
+      val y = entityIn.getPosY
+      val z = entityIn.getPosZ
       val (url, rotation, width, height, alpha, brightness, flippedY, flippedX) = ImageSettings.unapply(entityIn.settings)
-      GlStateManager._disableLighting()
-      GlStateManager._color4f(brightness, brightness, brightness, alpha)
+      GlStateManager.disableLighting()
+      GlStateManager.color4f(brightness, brightness, brightness, alpha)
 
-      texture.bind()
+      texture.bindTexture()
 
       GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST)
       GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST)
 
-      GlStateManager._pushMatrix()
+      GlStateManager.pushMatrix()
       GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5)
 
       applyDirection(rotation)
@@ -72,8 +72,8 @@ class ImageEntityRenderer(entity : EntityRendererManager) extends EntityRenderer
       GL11.glVertex3f(0.5f, -0.5f, 0.5f)
       GL11.glEnd()
 
-      GlStateManager._popMatrix()
+      GlStateManager.popMatrix()
 
-      GlStateManager._disableRescaleNormal()
-      GlStateManager._disableBlend()
-      GlStateManager._enableLighting()
+      GlStateManager.disableRescaleNormal()
+      GlStateManager.disableBlend()
+      GlStateManager.enableLighting()
